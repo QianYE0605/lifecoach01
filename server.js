@@ -1,17 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const app = express();
-const port = 3007;
+const port = process.env.PORT || 3007;
 
 // 配置CORS和JSON解析中间件
 app.use(cors());
 app.use(express.json());
 
 // DeepSeek R1 API配置
-const API_KEY = '1dedb5a3-9ff3-4b43-a67f-9a0aa0e454cf';
-const API_URL = 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
+const API_KEY = process.env.API_KEY;
+const API_URL = process.env.API_URL;
 
 // 系统提示词，定义AI助手的角色
 const SYSTEM_PROMPT = `你是一位专业的生活教练，拥有丰富的心理学和个人发展知识。你的目标是：

@@ -1,6 +1,6 @@
 {
   "name": "lifecoach",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "## 项目简介 这是一个基于DeepSeek R1 API开发的AI生活教练网站。通过与AI助手的对话，用户可以获得个性化的建议和指导，帮助个人成长。",
   "main": "server.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
     "express": "^4.21.2",
     "node-fetch": "^3.3.2"
   }
