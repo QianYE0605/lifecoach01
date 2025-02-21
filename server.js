@@ -10,6 +10,9 @@ const port = process.env.PORT || 3007;
 app.use(cors());
 app.use(express.json());
 
+// 配置静态文件服务
+app.use(express.static('.'));
+
 // DeepSeek R1 API配置
 const API_KEY = process.env.API_KEY;
 const API_URL = process.env.API_URL;
