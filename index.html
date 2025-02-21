@@ -12,11 +12,34 @@
             box-sizing: border-box;
         }
 
+        @keyframes float-clouds {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 0; }
+        }
+
         body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: 'SimHei', 'Heiti SC', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background-color: #f5f5f5;
             color: #333;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            background-size: 200% 200%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><path d="M0,200 Q200,150 400,200 T800,200 V1000 H0 Z" fill="rgba(255,255,255,0.8)"/></svg>');
+            background-size: 200% 100%;
+            animation: float-clouds 30s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
         }
 
         /* 页面布局 */
@@ -83,7 +106,7 @@
         }
 
         .user .message-content {
-            background-color: #007AFF;
+            background-color: #81C784;
             color: #fff;
             border-top-right-radius: 5px;
         }
@@ -114,22 +137,33 @@
         }
 
         #message-input:focus {
-            border-color: #007AFF;
+            border-color: #C8E6C9;
         }
 
         #send-button {
             padding: 12px 24px;
-            background-color: #007AFF;
-            color: #fff;
+            background-color: #C8E6C9;
+            color: #333;
             border: none;
             border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #send-button:hover {
-            background-color: #0056b3;
+            background-color: #E8F5E9;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(200, 230, 201, 0.3);
+        }
+
+        #send-button:hover {
+            background-color: #E8F5E9;
         }
 
         /* 加载动画 */
@@ -254,7 +288,7 @@
 
             try {
                 // 发送API请求（后端服务器地址需要根据实际情况修改）
-                const response = await fetch('http://localhost:3007/chat', {
+                const response = await fetch('/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

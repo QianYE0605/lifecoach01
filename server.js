@@ -71,9 +71,39 @@ app.post('/chat', async (req, res) => {
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Transfer-Encoding', 'chunked');
 
+        // 简单的情绪分析函数
+        function analyzeEmotion(text) {
+            const emotions = {
+                happy: /[喜欢|开心|快乐|高兴|棒|好|优秀|感谢|谢谢|满意]/,
+                sad: /[伤心|难过|痛苦|失望|不开心|焦虑|担心|害怕]/,
+                angry: /[生气|愤怒|不满|讨厌|烦|滚|混蛋|垃圾]/,
+                neutral: /.*/ // 默认情绪
+            };
+
+            for (const [emotion, pattern] of Object.entries(emotions)) {
+                if (pattern.test(text)) {
+                    switch(emotion) {
+                        case 'happy':
+                            return '😊 🌟 ';
+                        case 'sad':
+                            return '😔 💙 ';
+                        case 'angry':
+                            return '😤 💪 ';
+                        default:
+                            return '🤔 💭 ';
+                    }
+                }
+            }
+            return '🤔 💭 ';
+        }
+
         // 处理DeepSeek API的流式响应
         const responseText = await response.text();
         const lines = responseText.split('\n');
+        
+        // 添加表情符号前缀
+        const emoticons = analyzeEmotion(userMessage);
+        res.write(emoticons); // 首先发送表情符号
 
         for (const line of lines) {
             if (line.trim() === '') continue;
